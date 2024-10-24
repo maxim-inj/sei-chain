@@ -64,7 +64,8 @@ func (server msgServer) EVMTransaction(goCtx context.Context, msg *types.MsgEVMT
 	ctx = ctx.WithGasMeter(sdk.NewInfiniteGasMeterWithMultiplier(ctx))
 
 	stateDB := state.NewDBImpl(ctx, &server, false)
-	emsg := server.GetEVMMessage(ctx, tx, msg.Derived.SenderEVMAddr)
+	senderAddr := msg.Derived.SenderEVMAddr
+	emsg := server.GetEVMMessage(ctx, tx, senderAddr)
 	gp := server.GetGasPool()
 
 	defer func() {

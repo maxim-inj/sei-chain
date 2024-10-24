@@ -233,9 +233,10 @@ func CmdDeployContract() *cobra.Command {
 			if err != nil {
 				panic("failed to read contract binary")
 			}
-			bz, err := hex.DecodeString(string(code))
+
+			bz, err := hex.DecodeString(strings.TrimSpace(string(code)))
 			if err != nil {
-				panic("failed to decode contract binary")
+				panic("failed to decode contract binary: " + err.Error())
 			}
 
 			key, err := getPrivateKey(cmd)
